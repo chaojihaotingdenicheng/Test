@@ -1,0 +1,109 @@
+{include file="public/header" /}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>分类列表</h5>
+        </div>
+        <div class="ibox-content">
+            <div  class="col-sm-2" style="width: 100px">
+                <div class="input-group" >
+                    <a href="{:url('add')}"><button class="btn btn-outline btn-primary" type="button">添加分类</button></a>
+                </div>
+            </div>
+            <form name="admin_list_sea" class="form-search" method="post" action="{:url('index')}">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <!--<input type="text" id="id" style="float: left" class="form-control" name="id" {if !empty($uid)} value="{$uid}" {/if} placeholder="输入用户ID" />-->
+                        <input type="text" id="key" class="form-control" name="key" {if !empty($name)} value="{$name}" {/if} placeholder="输入需查询的名称" />
+                        <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="example-wrap">
+        <div class="example">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr class="long-tr">
+                                       <!--                            <th>操作</th>-->
+                </tr>
+                </thead>
+
+
+                 <tr>
+                 <th>ID</th>
+                 <th align="center">是否置顶首页</th>
+                 <th>名称</th>
+                 <th>头像</th>
+                 <th>父ID</th>
+                 <th>所属行业</th>
+                 <th>创建时间</th>
+                 <th>操作</th>
+              </tr>
+                {volist name='list' id='val'}
+                <td>{$val.id}</td>
+                <td align="center">
+                 {if $val.is_up eq 1}
+                 置顶首页
+                 {else}
+                 不置顶首页
+                 {/if}
+                </td>
+                <td>
+                    {if condition="$val['leve'] neq 0"} |{/if}
+                    <?php echo str_repeat('-',$val['leve'] * 8) ?>
+                    {$val.name}
+                </td>
+                <td>
+                <img src="{$val.pic}" style="width: 48px;height: 48px;">
+                </td>
+                <td>{$val.pid}</td>
+                {volist name='data' id='dat'}
+                {if $val.industry_id eq $dat.id}
+                <td>{$dat.info}</td>
+                {/if}
+                {/volist}
+                <td>{$val.create_time}</td>
+                    <td>
+                        <a href="{:url('edit',['id'=>$val['id']])}"; class="btn btn-primary btn-xs">
+                            <i class="fa fa-paste"></i> 编辑</a>&nbsp;&nbsp;
+
+                        <a href="{:url('delete',['id'=>$val['id']])}"  class="btn btn-danger btn-xs">
+                            <i class="fa fa-trash-o"></i> 删除</a>
+                    </td>
+                    <td align="center">
+                    {if $val.is_up eq 1}
+                                    <a class="red" href="{:url('user_is_up',['id'=>$val['id']])}">
+                                        <div id="zt{{$val.id}}"><span class="label label-info">置顶首页</span></div>
+                                    </a>
+                                   <!--  {{# }else{ }} -->
+                                   {else}
+                                    <a class="red" href="{:url('user_is_up',['id'=>$val['id']])}">
+                                        <div id="zt{{$val.id}}"><span class="label label-danger">默认</span></div>
+                                    </a>
+                                   <!--  {{# } }}
+                                    {{# } }} -->
+                                    {/if}
+                                    </td>
+                    </tr>
+
+    {/volist}
+
+
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+</body>

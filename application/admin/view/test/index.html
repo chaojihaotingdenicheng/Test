@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <th>名字</th>
+    <th>内容</th>
+    {volist name='data' id='val'}
+    <tr>
+    <td>{$val.name}</td>
+    <td>{$val.info}</td>
+    </tr>
+    {/volist}
+</table>
+</body>
+</html>

@@ -1,0 +1,117 @@
+{include file="public/header" /}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>用户列表</h5>
+        </div>
+        <div class="ibox-content">
+            <form name="admin_list_sea" class="form-search" method="post" action="{:url('index')}">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <!--<input type="text" id="id" style="float: left" class="form-control" name="id" {if !empty($uid)} value="{$uid}" {/if} placeholder="输入用户ID" />-->
+                        <input type="text" id="key" class="form-control" name="key" {if !empty($name)} value="{$name}" {/if} placeholder="输入需查询的用户名" />
+                        <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
+                                </span>
+                    </div>
+                </div>
+            </form>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="example-wrap">
+                <div class="example">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="long-tr">
+                            <th>ID</th>
+                            <th>是否置顶首页</th>
+                            <th>姓名</th>
+                            <th>状态</th>
+                            <th>登录手机号</th>
+                            <th>余额</th>
+                            <th>性别</th>
+                            <th>个人账号</th>
+                            <th>真实姓名</th>
+                            <th>联系方式</th>
+                            <th>网易云 im iccid</th>
+                            <th>网易云 im token</th>
+<!--                            <th>操作</th>-->
+                        </tr>
+                        </thead>
+                            {volist name='list' id="val"}
+                            <td>{$val.id}</td>
+                            <td align="center">
+                            {if $val.is_home eq 1}
+                            置顶首页
+                            {else}
+                            不置顶首页
+                            {/if}
+                            </td>
+                            <td>{$val.name}</td>
+                           <td><!-- 
+                                    {{# if($val.id!==1){ }}
+                                    {{# if($val.status==1){ }} -->
+                                    {if $val.status eq 1}
+                                    <a class="red" href="{:url('user_status',['id'=>$val['id']])}">
+                                        <div id="zt{{$val.id}}"><span class="label label-info">开启</span></div>
+                                    </a>
+                                   <!--  {{# }else{ }} -->
+                                   {else}
+                                    <a class="red" href="{:url('user_status',['id'=>$val['id']])}">
+                                        <div id="zt{{$val.id}}"><span class="label label-danger">禁用</span></div>
+                                    </a>
+                                   <!--  {{# } }}
+                                    {{# } }} -->
+                                    {/if}
+                                </td>
+                            <td>{$val.phone}</td>
+                            <td>{$val.amount}</td>
+                            <td>{$val.sex}</td>
+                            <td>{$val.number}</td>
+                            <td>{$val.real_name}</td>
+                            <td>{$val.contact}</td>
+                            <td>{$val.accid}</td>
+                            <td>{$val.imtoken}</td>
+                        <td align="center">
+                            {if $val.is_home eq 1}
+                            <a class="red" href="{:url('user_is_up',['id'=>$val['id']])}">
+                                <div id="zt{{$val.id}}"><span class="label label-info">置顶首页</span></div>
+                            </a>
+                            <!--  {{# }else{ }} -->
+                            {else}
+                            <a class="red" href="{:url('user_is_up',['id'=>$val['id']])}">
+                                <div id="zt{{$val.id}}"><span class="label label-danger">默认</span></div>
+                            </a>
+                            <!--  {{# } }}
+                             {{# } }} -->
+                            {/if}
+                        </td>
+
+<!--                                <td>-->
+
+<!--                                    <a href="#">-->
+<!--                                       <button>编辑</button> </a>&nbsp;&nbsp;-->
+<!--                                    <a href="#">-->
+<!--                                        <button>删除</button> </a>-->
+
+<!--                                </td>-->
+                            </tr>
+                            {/volist}
+
+
+                    </table>
+                    {$list->render()}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+

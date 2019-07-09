@@ -1,0 +1,126 @@
+{include file="public/header" /}
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>动态列表</h5>
+        </div>
+        <div class="ibox-content">
+            <div  class="col-sm-2" style="width: 100px">
+                <div class="input-group" >
+                    <a href="{:url('add')}"><button class="btn btn-outline btn-primary" type="button">添加动态</button></a>
+                </div>
+            </div>
+            <form name="admin_list_sea" class="form-search" method="post" action="{:url('index')}">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <!--<input type="text" id="id" style="float: left" class="form-control" name="id" {if !empty($uid)} value="{$uid}" {/if} placeholder="输入用户ID" />-->
+                        <input type="text" id="key" class="form-control" name="key" {if !empty($info)} value="{$info}" {/if} placeholder="输入需查询的关键字" />
+                        <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
+                                </span>
+                    </div>
+                </div>
+            </form>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="example-wrap">
+                <div class="example">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr class="long-tr">
+                            <th>ID</th>
+                            <th>用户</th>
+                            <th>状态</th>
+                            <th>动态内容</th>
+                            <th>图片</th>
+                            <th>评论数</th>
+                            <th>转发数</th>
+                            <th>赞数</th>
+                            <th>是否是问答</th>
+                            <th>操作</th>
+
+<!--                            <th>操作</th>-->
+                        </tr>
+                        </thead>
+                            {volist name='list' id="val"}
+
+                            <td>{$val.id}</td>
+
+
+                           <td>{$val.name}</td>
+                           <td><!--
+                                    {{# if($val.id!==1){ }}
+                                    {{# if($val.status==1){ }} -->
+                               {switch name='val.status'}
+                               {case value='1'}
+                                    <a class="red" href="{:url('user_status',['id'=>$val['id']])}">
+                                        <div id="zt1"><span class="label label-info">待审核</span></div>
+                                    </a>
+                               {/case}
+                                   {case value='2'}
+                               <a class="red" href="{:url('user_status',['id'=>$val['id']])}">
+                                   <div id="zt2"><span class="label label-info">审核通过</span></div>
+                               </a>
+                                  {/case}
+                               {default/}
+                                    <a class="red" href="{:url('user_status',['id'=>$val['id']])}">
+                                        <div id="zt0"><span class="label label-danger">禁用</span></div>
+                                    </a>
+
+                                   <!--  {{# } }}
+                                    {{# } }} -->
+                                 {/switch}
+                                </td>
+                            <td>{$val.info}</td>
+                            <td align="center">
+                                <img src="{val.img}" height="30px">
+                            </td>
+                            <td>{$val.comment_count}</td>
+                            <td>{$val.zhuanfa_count}</td>
+                            <td>{$val.zan_count}</td>
+                        <td>
+                            {if $val.is_answer eq 1}
+                            <p>是问答</p>
+                            {else}
+                            <p>不是问答</p>
+                            {/if}
+                        </td>
+                            <td>
+                        <a href="{:url('edit',['id'=>$val['id']])}"; class="btn btn-primary btn-xs">
+                            <i class="fa fa-paste"></i> 编辑</a>&nbsp;
+                                <a href="{:url('del',['id'=>$val['id']])}"  class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash-o"></i> 删除</a>&nbsp;
+                                <a href="{:url('comment/index',['id'=>$val['id']])}"; class="btn btn-primary btn-xs">
+                                    <i class="fa fa-paste"></i> 评论详情</a>&nbsp;
+                                <a href="{:url('zhuanfa/index',['id'=>$val['id']])}"; class="btn btn-primary btn-xs">
+                                    <i class="fa fa-paste"></i> 转发详情</a>
+
+                    </td>
+<!--                                <td>-->
+
+<!--                                    <a href="#">-->
+<!--                                       <button>编辑</button> </a>&nbsp;&nbsp;-->
+<!--                                    <a href="#">-->
+<!--                                        <button>删除</button> </a>-->
+
+<!--                                </td>-->
+                            </tr>
+                            {/volist}
+
+
+                    </table>
+                    {$list->render()}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+
